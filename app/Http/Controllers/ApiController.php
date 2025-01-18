@@ -26,11 +26,6 @@ class ApiController extends Controller
         return response()->json(Product::all());
     }
 
-    public function getStocks()
-    {
-        return response()->json(Stock::all());
-    }
-
     public function getSuppliers()
     {
         return response()->json(Supplier::all());

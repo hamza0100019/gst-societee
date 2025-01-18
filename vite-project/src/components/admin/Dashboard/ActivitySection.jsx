@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlusCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
+import axios from "axios";
 
 const ActivitySection = () => {
-  const activities = [
-    { id: 1, description: "Added a new product: Laptop", time: "2 hours ago", type: "add" },
-    { id: 2, description: "Updated client information: John Doe", time: "5 hours ago", type: "update" },
-    { id: 3, description: "Deleted supplier: ABC Corp.", time: "1 day ago", type: "delete" },
-  ];
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/activities");
+        setActivities(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching activities:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchActivities();
+  }, []);
 
   const getActivityIcon = (type) => {
     switch (type) {
@@ -21,6 +34,10 @@ const ActivitySection = () => {
     }
   };
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="p-6 bg-gradient-to-r from-blue-50 to-white shadow-lg rounded-lg">
       <h3 className="text-xl font-bold text-gray-800 mb-4">Recent Activities</h3>
@@ -30,12 +47,12 @@ const ActivitySection = () => {
             key={activity.id}
             className="flex items-center gap-4 py-4 hover:bg-gray-100 rounded-lg transition duration-200"
           >
-            <div className="flex-shrink-0">
-              {getActivityIcon(activity.type)}
-            </div>
+            <div>{getActivityIcon(activity.type)}</div>
             <div>
               <p className="text-sm font-medium text-gray-700">{activity.description}</p>
-              <span className="text-xs text-gray-500">{activity.time}</span>
+              <span className="text-xs text-gray-500">
+                {new Date(activity.created_at).toLocaleString()}
+              </span>
             </div>
           </li>
         ))}

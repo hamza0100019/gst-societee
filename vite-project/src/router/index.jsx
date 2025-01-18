@@ -19,9 +19,19 @@ import StockManagement from "../components/admin/StockManagement";
                   element: (
                       <ProtectedRoute>
                           <Dashboard />
+                          
                       </ProtectedRoute>
                   ),
               },
+              {
+                path: "/dashboard/stock",
+                element: (
+                    <ProtectedRoute>
+                        <StockManagement />
+                        
+                    </ProtectedRoute>
+                ),
+            },
               {
                   path: "/login",
                   element: (
