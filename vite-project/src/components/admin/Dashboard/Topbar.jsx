@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaBell } from "react-icons/fa";
 import axios from "axios";
-import imag from "C:\\xampp\\htdocs\\gst-societee\\vite-project\\src\\assets\\im.png";
 
 const Topbar = () => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -99,7 +98,7 @@ const Topbar = () => {
         </div>
 
         {/* Profile Picture */}
-        <img src={imag} alt="profile" className="w-10 h-10 rounded-full" />
+        <img src="im.png" alt="profile" className="w-10 h-10 rounded-full" />
       </div>
     </header>
   );

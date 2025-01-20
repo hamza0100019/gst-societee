@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import imag from "C:\\xampp\\htdocs\\gst-societee\\vite-project\\src\\assets\\logo-.png";
 import {
   FaHome,
   FaUserFriends,
@@ -36,7 +35,7 @@ const Sidebar = () => {
       {/* Branding */}
       <div className="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-800 flex justify-center items-center">
         <img
-          src={imag}
+          src="logo-.png"
           alt="Logo"
           className="w-32 h-32 object-cover"
         />
