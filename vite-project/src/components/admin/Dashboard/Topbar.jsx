@@ -1,5 +1,5 @@
 import React from "react";
-import imag from "C:\\xampp\\htdocs\\gst-societee\\vite-project\\src\\assets\\im.png";
+import imag from "C:\\Users\\medal\\gst-societee\\vite-project\\src\\assets\\im.png";
 const Topbar = () => {
   return (
     <header className="bg-white shadow p-4 flex justify-between items-center">

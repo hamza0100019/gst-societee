@@ -5,10 +5,10 @@ import * as Yup from 'yup';
 import { axiosClient } from '../../api/axios';
 
 const LoginAdmin = () => {
-    const [alertMessage, setAlertMessage] = useState(null); // Pour les messages d'alerte
-    const [alertType, setAlertType] = useState(null); // Type d'alerte: 'success' ou 'error'
-    const [isLoading, setIsLoading] = useState(false); // Pour afficher le chargement
-    const navigate = useNavigate(); // Pour naviguer vers une autre page
+    const [alertMessage, setAlertMessage] = useState(null);
+    const [alertType, setAlertType] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const initialValues = {
         email: '',
@@ -16,8 +16,12 @@ const LoginAdmin = () => {
     };
 
     const validationSchema = Yup.object({
-        email: Yup.string().email('Invalid email format').required('Email is required'),
-        password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required')
+        email: Yup.string()
+            .email('Format de l\'email invalide')
+            .required('L\'email est requis'),
+        password: Yup.string()
+            .min(6, 'Le mot de passe doit contenir au moins 6 caractères')
+            .required('Le mot de passe est requis')
     });
 
     const onSubmit = async (values, { setSubmitting }) => {
@@ -25,96 +29,150 @@ const LoginAdmin = () => {
         try {
             await axiosClient.get('/sanctum/csrf-cookie');
             const response = await axiosClient.post('/login', values);
-    
-            localStorage.setItem("auth_token", response.data.token); // Stocke le token
-            setAlertMessage('Login successful');
+
+            localStorage.setItem("auth_token", response.data.token);
+            setAlertMessage('Connexion réussie');
             setAlertType('success');
-            
-            // Redirige vers le dashboard
+
             setTimeout(() => {
                 navigate('/dashboard');
             }, 1000);
         } catch (error) {
-            setAlertMessage('Invalid email or password. Please try again.');
+            setAlertMessage('Email ou mot de passe invalide. Veuillez réessayer.');
             setAlertType('error');
         } finally {
             setSubmitting(false);
             setIsLoading(false);
         }
     };
-    
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-500">
-            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-                <h2 className="text-3xl font-bold text-center text-gray-800">Admin Login</h2>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <style>
+                {`
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        25% { transform: translateX(-5px); }
+                        50% { transform: translateX(5px); }
+                        75% { transform: translateX(-5px); }
+                    }
+                    .shake {
+                        animation: shake 0.3s ease-in-out;
+                    }
+                `}
+            </style>
+            <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+                <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">
+                    Connexion
+                </h2>
 
-                {/* Alert messages */}
+                {/* Messages d'alerte */}
                 {alertMessage && (
                     <div
-                        className={`p-4 rounded ${
+                        className={`p-4 mb-4 text-center rounded ${
                             alertType === 'success'
-                                ? 'bg-green-100 text-green-800 border-green-300'
-                                : 'bg-red-100 text-red-800 border-red-300'
-                        } border`}
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-red-100 text-red-800'
+                        }`}
                     >
                         {alertMessage}
                     </div>
                 )}
 
-                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                >
                     {({ errors, touched }) => (
-                        <Form className="space-y-6">
-                            <div className="space-y-1">
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                    Email
-                                </label>
+                        <Form className="space-y-8">
+                            {/* Champ Email */}
+                            <div className="relative">
                                 <Field
                                     type="email"
                                     id="email"
                                     name="email"
-                                    className={`w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:ring-indigo-300 ${
+                                    placeholder="Entrez votre email"
+                                    className={`peer block w-full px-4 py-3 bg-transparent border-b-2 focus:ring-0 focus:outline-none ${
                                         errors.email && touched.email
                                             ? 'border-red-500'
                                             : 'border-gray-300'
                                     }`}
+                                    autoComplete="off"
                                 />
+                                {/* Label */}
+                                <label
+                                    htmlFor="email"
+                                    className={`absolute left-4 text-sm text-gray-400 transition-all opacity-0 peer-placeholder-shown:opacity-0 peer-placeholder-shown:top-3 peer-focus:opacity-100 peer-focus:top-[-10px] peer-focus:text-blue-600`}
+                                >
+                                    Email
+                                </label>
+                                {/* Icône */}
+                                <span
+                                    className={`absolute right-3 top-3 text-lg transition-all ${
+                                        (alertMessage === 'Email ou mot de passe invalide. Veuillez réessayer.' ||
+                                            (errors.email && touched.email))
+                                            ? 'text-red-500 shake'
+                                            : 'text-gray-400'
+                                    }`}
+                                >
+                                    <i className="fas fa-envelope"></i>
+                                </span>
                                 <ErrorMessage
                                     name="email"
                                     component="div"
-                                    className="text-sm text-red-600"
+                                    className="text-sm text-red-600 mt-1"
                                 />
                             </div>
 
-                            <div className="space-y-1">
-                                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                    Password
-                                </label>
+                            {/* Champ Mot de passe */}
+                            <div className="relative">
                                 <Field
                                     type="password"
                                     id="password"
                                     name="password"
-                                    className={`w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:ring-indigo-300 ${
+                                    placeholder="Entrez votre mot de passe"
+                                    className={`peer block w-full px-4 py-3 bg-transparent border-b-2 focus:ring-0 focus:outline-none ${
                                         errors.password && touched.password
                                             ? 'border-red-500'
                                             : 'border-gray-300'
                                     }`}
+                                    autoComplete="off"
                                 />
+                                {/* Label */}
+                                <label
+                                    htmlFor="password"
+                                    className={`absolute left-4 text-sm text-gray-400 transition-all opacity-0 peer-placeholder-shown:opacity-0 peer-placeholder-shown:top-3 peer-focus:opacity-100 peer-focus:top-[-10px] peer-focus:text-blue-600`}
+                                >
+                                    Mot de passe
+                                </label>
+                                {/* Icône */}
+                                <span
+                                    className={`absolute right-3 top-3 text-lg transition-all ${
+                                        (alertMessage === 'Email ou mot de passe invalide. Veuillez réessayer.' ||
+                                            (errors.password && touched.password))
+                                            ? 'text-red-500 shake'
+                                            : 'text-gray-400'
+                                    }`}
+                                >
+                                    <i className="fas fa-lock"></i>
+                                </span>
                                 <ErrorMessage
                                     name="password"
                                     component="div"
-                                    className="text-sm text-red-600"
+                                    className="text-sm text-red-600 mt-1"
                                 />
                             </div>
 
+                            {/* Bouton de soumission */}
                             <button
                                 type="submit"
-                                className={`w-full px-4 py-2 text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300 transition duration-200 ${
+                                className={`w-full py-3 text-white bg-blue-600 rounded-full font-medium text-lg transition-transform duration-500 transform hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                     isLoading ? 'opacity-50 cursor-not-allowed' : ''
                                 }`}
                                 disabled={isLoading}
                             >
-                                {isLoading ? 'Logging in...' : 'Login'}
+                                {isLoading ? 'Connexion...' : 'Se connecter'}
                             </button>
                         </Form>
                     )}

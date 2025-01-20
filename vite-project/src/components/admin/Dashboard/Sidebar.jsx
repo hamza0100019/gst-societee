@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import imag from "C:\\xampp\\htdocs\\gst-societee\\vite-project\\src\\assets\\logo-.png";
+import imag from "C:\\Users\\medal\\gst-societee\\vite-project\\src\\assets\\logo-.png";
 import {
   FaHome,
   FaUserFriends,
