@@ -43,5 +43,7 @@ Route::get('/activities', [ActivityController::class, 'index']);
 
 Route::apiResource('clients', ClientController::class);
 Route::apiResource('products', ProductController::class);
+Route::post('/products/update/{id}', [ProductController::class, 'update']);
+
 // Route::apiResource('salaries', SalarieController::class);
 // Route::apiResource('suppliers', SupplierController::class);

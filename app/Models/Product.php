@@ -28,6 +28,7 @@ class Product extends Model
         'quantity',
         'expiration_date',
         'category',
+        'image',
     ];
 
     /**

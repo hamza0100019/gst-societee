@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -25,43 +27,59 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
-    // Add a new product
-   // Store a product
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'price' => 'required|numeric',
-        'quantity' => 'required|integer',
-        'expiration_date' => 'nullable|date',
-        'category' => 'nullable|string|max:255',
-    ]);
+    // Store a new product
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'expiration_date' => 'nullable|date',
+            'category' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    $product = Product::create($validated);
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('product_images', 'public');
+        }
 
-    return response()->json($product, 201);
-}
+        $product = Product::create($validated);
 
-// Update a product
-public function update(Request $request, $id)
-{
-    $product = Product::findOrFail($id);
+        return response()->json($product, 201);
+    }
 
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'price' => 'required|numeric',
-        'quantity' => 'required|integer',
-        'expiration_date' => 'nullable|date',
-        'category' => 'nullable|string|max:255',
-    ]);
-
-    $product->update($validated);
-
-    return response()->json($product);
-}
-
+    // Update a product
+    public function update(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+    
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'expiration_date' => 'nullable|date',
+            'category' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+    
+            $validated['image'] = $request->file('image')->store('product_images', 'public');
+        }
+    
+        $product->update($validated);
+    
+        return response()->json($product);
+    }
+    
 
     // Delete a product
     public function destroy($id)
@@ -70,6 +88,11 @@ public function update(Request $request, $id)
 
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
+        }
+
+        // Delete the product image if it exists
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
         }
 
         $product->delete();

@@ -8,7 +8,7 @@ import Dashboard from "../components/admin/Dashboard/Dashboard";
 import StockManagement from "../components/admin/StockManagement";
   import ProtectedRoute from "../components/ProtectedRoute";
   import GuestRoute from "../components/GuestRoute";
-
+  import { Toaster } from "react-hot-toast";
   
   export const router = createBrowserRouter([
       {
@@ -31,24 +31,33 @@ import StockManagement from "../components/admin/StockManagement";
                         
                     </ProtectedRoute>
                 ),
-            },
-              {
+            }
+            ]
+        }, 
+             
+            {
                   path: "/login",
                   element: (
                       <GuestRoute>
+                        <Toaster/>
                           <Login />
                       </GuestRoute>
                   ),
               },
               {
-                  path: "/",
-                  element: <Login />,
-              },
+                path: "/",
+                element: (
+                    <GuestRoute>
+                        <Login />
+                    </GuestRoute>
+                ),
+            },
+              
               {
                   path: "*",
                   element: "Not Found",
               },
-          ],
-      },
-  ]);
+          ]);
+  
+ 
   
