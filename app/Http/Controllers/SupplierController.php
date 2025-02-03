@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
+=======
+
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -22,5 +25,7 @@ class SupplierController extends Controller
         ->get();
     return response()->json($suppliers);
 }
+
+    //
 
 }

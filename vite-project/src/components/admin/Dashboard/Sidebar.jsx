@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+
 import imag from "C:\\wamp\\www\\laravel\\gst-societee\\vite-project\\src\\assets\\logo.png";
+
+
 import {
   FaUserFriends,
   FaBoxes,
@@ -44,7 +47,7 @@ const Sidebar = () => {
       {/* Branding */}
       <div className="px-6 py-8 flex justify-center items-center bg-gradient-to-r from-[#3F72AF] to-[#112D4E] shadow-lg">
         <img
-          src={imag}
+          src="logo-.png"
           alt="Logo"
           className="w-28 h-28 rounded-full object-cover border-4 border-[#F9F7F7] shadow-lg"
         />

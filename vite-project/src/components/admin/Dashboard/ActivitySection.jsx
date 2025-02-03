@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import axios from "axios";
 import { FaDollarSign, FaUsers, FaUserPlus, FaShoppingCart } from "react-icons/fa";
 
@@ -27,6 +28,46 @@ const ActivitySection = () => {
 
   if (error) {
     return <p className="text-red-500">{error}</p>; // Afficher une erreur si elle existe
+  }
+
+import { FaPlusCircle, FaEdit, FaTrashAlt } from "react-icons/fa";
+import axios from "axios";
+
+const ActivitySection = () => {
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/activities");
+        setActivities(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching activities:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchActivities();
+  }, []);
+
+  const getActivityIcon = (type) => {
+    switch (type) {
+      case "add":
+        return <FaPlusCircle className="text-green-500" size={20} />;
+      case "update":
+        return <FaEdit className="text-blue-500" size={20} />;
+      case "delete":
+        return <FaTrashAlt className="text-red-500" size={20} />;
+      default:
+        return null;
+    }
+  };
+
+
+  if (loading) {
+    return <p>Loading...</p>;
   }
 
   return (
@@ -94,6 +135,7 @@ const ActivitySection = () => {
                 : "text-red-500"
             }`}
           >
+
             {data.newClients.percentage >= 0 ? "+" : ""}
             {data.newClients.percentage}%
           </p>
@@ -113,6 +155,18 @@ const ActivitySection = () => {
           <p className="text-sm text-gray-500">Cumulative data</p>
         </div>
       </div>
+
+            <div>{getActivityIcon(activity.type)}</div>
+            <div>
+              <p className="text-sm font-medium text-gray-700">{activity.description}</p>
+              <span className="text-xs text-gray-500">
+                {new Date(activity.created_at).toLocaleString()}
+              </span>
+            </div>
+          </li>
+        ))}
+      </ul>
+
     </div>
   );
 };
