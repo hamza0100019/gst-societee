@@ -21,6 +21,23 @@ class AttendancesTableSeeder extends Seeder
                 'date' => '2025-01-10',
                 'status' => 'late',
             ],
+            [
+                'user_id' => 2,
+                'date' => '2025-01-10',
+                'status' => 'late',
+            ], [
+                'user_id' => 2,
+                'date' => '2025-01-10',
+                'status' => 'late',
+            ], [
+                'user_id' => 2,
+                'date' => '2025-01-10',
+                'status' => 'late',
+            ], [
+                'user_id' => 2,
+                'date' => '2025-01-10',
+                'status' => 'late',
+            ],
         ]);
     }
 }
