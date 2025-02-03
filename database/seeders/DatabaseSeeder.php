@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             TransactionsTableSeeder::class,
             AttendancesTableSeeder::class,
             SalariesTableSeeder::class,
+            SalesTableSeeder::class,
+            ExpensesTableSeeder::class,
         ]);
     }
 }

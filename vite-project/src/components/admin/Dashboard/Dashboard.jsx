@@ -5,35 +5,24 @@ import OverviewCards from "./OverviewCard";
 import ChartSection from "./ChartSection";
 import ActivitySection from "./ActivitySection";
 import QuickActions from "./QuickActions";
-
+import GlobalSales from "./Chartgeo";
 
 const Dashboard = () => {
   return (
-    <div className="flex h-screen bg-gradient-to-r from-blue-50 to-gray-100">
+    <div className="flex">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Topbar */}
+      <div className="flex-1 ml-64">
         <Topbar />
-
-        {/* Main Content */}
-        <main className="p-6 space-y-6">
-          {/* Overview Cards */}
+        <main className="p-6 space-y-6 bg-gradient-to-r from-blue-50 to-gray-100 min-h-screen">
           <OverviewCards />
-
-          {/* Charts */}
-          <ChartSection />
-
-          {/* Activity Section */}
           <ActivitySection />
-
-          {/* Quick Actions */}
+          <ChartSection />
+          <GlobalSales />
           <QuickActions />
         </main>
-
-        
       </div>
     </div>
   );

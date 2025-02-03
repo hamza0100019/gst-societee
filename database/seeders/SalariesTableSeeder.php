@@ -25,6 +25,37 @@ class SalariesTableSeeder extends Seeder
                 'deductions' => 100.00,
                 'payment_date' => now(),
             ],
+            [
+                'user_id' => 3,
+                'amount' => 3000.00,
+                'bonus' => 300.00,
+                'deductions' => 100.00,
+                'payment_date' => now(),
+            ],[
+                'user_id' => 4,
+                'amount' => 3000.00,
+                'bonus' => 300.00,
+                'deductions' => 100.00,
+                'payment_date' => now(),
+            ],[
+                'user_id' => 5,
+                'amount' => 3000.00,
+                'bonus' => 300.00,
+                'deductions' => 100.00,
+                'payment_date' => now(),
+            ],[
+                'user_id' => 6,
+                'amount' => 3000.00,
+                'bonus' => 300.00,
+                'deductions' => 100.00,
+                'payment_date' => now(),
+            ],[
+                'user_id' => 7,
+                'amount' => 3000.00,
+                'bonus' => 300.00,
+                'deductions' => 100.00,
+                'payment_date' => now(),
+            ],
         ]);
     }
 }
