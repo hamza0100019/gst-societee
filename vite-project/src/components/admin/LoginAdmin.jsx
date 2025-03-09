@@ -22,13 +22,16 @@ const LoginAdmin = () => {
             .min(6, 'Le mot de passe doit contenir au moins 6 caractères')
             .required('Le mot de passe est requis')
     });
-
+   
+     
     const onSubmit = async (values) => {
         setIsLoading(true);
+    
         try {
             await axiosClient.get('/sanctum/csrf-cookie');
+        
+            // Ensuite faire le login
             const response = await axiosClient.post('/login', values);
-
             localStorage.setItem("auth_token", response.data.token);
             toast.success("Connexion réussie");
 

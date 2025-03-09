@@ -29,9 +29,9 @@ Route::middleware(['auth:sanctum'])->post('/logout', function (Request $request)
 });
 
 
-Route::get('/sanctum/csrf-cookie', function () {
-    return response()->json(['message' => 'CSRF cookie set']);
-});
+// Route::get('/sanctum/csrf-cookie', function () {
+//     return response()->json(['message' => 'CSRF cookie set']);
+// });
 
 Route::get('/activities', [ActivityController::class, 'index']);
 // Route::get('/clients', [ApiController::class, 'getClients']);
