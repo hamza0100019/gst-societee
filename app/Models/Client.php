@@ -19,6 +19,7 @@ class Client extends Model
         'email',
         'phone',
         'address',
+        'notes',
     ];
 
     /**

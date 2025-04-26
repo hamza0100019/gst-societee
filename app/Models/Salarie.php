@@ -15,11 +15,11 @@ class Salarie extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'position',
+        'amount',
+        'bonus',
+        'deductions',
+        'payment_date',
+        
     ];
 
     /**

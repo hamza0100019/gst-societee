@@ -41,8 +41,11 @@ class Product extends Model
         'expiration_date' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'quantity' => 'integer',
     ];
-
+  
+        
+    
     /**
      * Accessor to get formatted price.
      *

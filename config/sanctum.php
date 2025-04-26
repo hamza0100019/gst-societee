@@ -21,7 +21,9 @@ return [
         Sanctum::currentApplicationUrlWithPort(),
         env('FRONTEND_URL') ? ','.parse_url(env('FRONTEND_URL'), PHP_URL_HOST) : ''
     ))),
-
+'stateful' => [
+    'localhost:3000', // Ajoutez votre domaine frontend
+],
     /*
     |--------------------------------------------------------------------------
     | Sanctum Guards

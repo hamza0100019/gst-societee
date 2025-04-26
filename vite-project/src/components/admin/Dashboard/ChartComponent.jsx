@@ -1,5 +1,5 @@
 import React from "react";
-import { Line, Bar } from "react-chartjs-2";
+import { Line, Bar, Pie, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   LineElement,
@@ -7,6 +7,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  ArcElement,
   Tooltip,
   Legend,
 } from "chart.js";
@@ -17,17 +18,23 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
+  ArcElement,
   Tooltip,
   Legend
 );
 
 const ChartComponent = ({ type, data, options }) => {
-  if (type === "line") {
-    return <Line data={data} options={options} />;
-  } else if (type === "bar") {
-    return <Bar data={data} options={options} />;
-  } else {
-    return null; // Default fallback
+  switch (type) {
+    case "line":
+      return <Line data={data} options={options} />;
+    case "bar":
+      return <Bar data={data} options={options} />;
+    case "pie":
+      return <Pie data={data} options={options} />;
+    case "doughnut":
+      return <Doughnut data={data} options={options} />;
+    default:
+      return null;
   }
 };
 

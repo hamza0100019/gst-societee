@@ -6,9 +6,10 @@ import Users from "../pages/Users";
 import Layout from "../layouts/layout";
 import Dashboard from "../components/admin/Dashboard/Dashboard";
 import StockManagement from "../components/admin/StockManagement";
-  import ProtectedRoute from "../components/ProtectedRoute";
-  import GuestRoute from "../components/GuestRoute";
-  import { Toaster } from "react-hot-toast";
+import ClientManagement from "../components/admin/ClientManagement";
+import ProtectedRoute from "../components/ProtectedRoute";
+import GuestRoute from "../components/GuestRoute";
+import { Toaster } from "react-hot-toast";
   
   export const router = createBrowserRouter([
       {
@@ -31,7 +32,16 @@ import StockManagement from "../components/admin/StockManagement";
                         
                     </ProtectedRoute>
                 ),
-            }
+            },
+            {
+                path: "/dashboard/clients",
+                element: (
+                    <ProtectedRoute>
+                        <ClientManagement />
+                        
+                    </ProtectedRoute>
+                ),
+            },
             ]
         }, 
              

@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum'])->post('/logout', function (Request $request)
 
 Route::get('/activities', [ActivityController::class, 'index']);
 // Route::get('/clients', [ApiController::class, 'getClients']);
-// Route::get('/employees', [ApiController::class, 'getEmployees']);
+Route::get('/employees', [SalarieController::class, 'index']);
 // Route::get('/products', [ApiController::class, 'getProducts']);
 // Route::get('/suppliers', [ApiController::class, 'getSuppliers']);
 // Route::get('/users', [ApiController::class, 'getUsers']);
@@ -43,7 +43,8 @@ Route::get('/activities', [ActivityController::class, 'index']);
 
 Route::apiResource('clients', ClientController::class);
 Route::apiResource('products', ProductController::class);
+// Route::apiResource('employees', UserController::class);
 Route::post('/products/update/{id}', [ProductController::class, 'update']);
 
-// Route::apiResource('salaries', SalarieController::class);
+Route::apiResource('salaries', SalarieController::class);
 // Route::apiResource('suppliers', SupplierController::class);
