@@ -9,6 +9,13 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 // use App\Http\Controllers\SalarieController;
 // use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\ExpensesTable;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -56,15 +63,7 @@ Route::get('/users', [ApiController::class, 'getUsers']);
 
 
 
-use App\Http\Controllers\SaleController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SalaryController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\ExpensesTable;
+
 
 Route::get('sales', [SaleController::class, 'index']);
 Route::get('clients', [ClientController::class, 'index']);
@@ -92,7 +91,6 @@ Route::delete('expenses/{id}', [ExpenseController::class, 'destroy']); // Suppri
 Route::get('sales-by-country', [ClientController::class, 'getSalesByCountry']); // Récupérer les ventes par pays
 
 
-use App\Http\Controllers\ActivityController;
 
 Route::get('/activity-section', [ActivityController::class, 'activitySection']);
 
